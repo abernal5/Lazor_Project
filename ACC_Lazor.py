@@ -82,67 +82,6 @@ class Function(object):
         else:
             return Function(lambda x: self.lam(x) / other.lam(x))
 
-
-class Plotter(object):
-    '''
-    This class serves as a wrapper for Matplotlib's plot function.
-    *Please note this function is not intended to handle two plots being
-    created at once. Initialize and .plot the desired plot before
-    beginning a second Plotter object.
-
-    **Parameters**
-
-        x_low: *int, float*
-            The lowest (or most negative) value in the domain
-        x_high: *int, float*
-            The highest (or most positive) value in the domain
-        x_step: *int, float*
-            The size of the steps taken between x_low and x_high.
-    '''
-
-    def __init__(self, x_low, x_high, x_step):
-        '''
-        Initializes the plot.
-        '''
-        self.x_step = x_step
-        self.x_low = x_low
-        self.x_high = x_high
-
-    def __call__(self):
-        '''
-        Allows user to simply run the self.plot command by writting self().
-        This will use default names.
-        '''
-        return self.plot()
-
-    def add_func(self, name, fun):
-        '''
-        Given a function name and a Function object, this adds the
-        described function to the plot being created by this class.
-        '''
-        x = np.arange(self.x_low, self.x_high, self.x_step)
-        # Uses Function call to create y values for domain given.
-        y = fun(x)
-        plt.plot(x, y, label=name)
-
-    def plot(self, title_name='Functions', file_name='Function Plotter'):
-        '''
-        Runs Matplotlib's figure creation and saves it to the current folder.
-        User also has the option of providing names for both the title of the
-        plot and for the image file being saved.
-        '''
-        # Creating all the elements of the plot
-        plt.xlabel("x")
-        plt.ylabel("y")
-        plt.title(title_name)
-        plt.axis([self.x_low, self.x_high, -200, 400])
-        plt.legend()
-        # Creating figure and saving it
-        fig = plt.gcf()
-        plt.show()
-        fig.savefig(file_name + ".png")
-
-
 if __name__ == "__main__":
     # For each Function object , we simply input the lambda function to it.
     # Note: be sure to include "import numpy as np" at the beginning of your
