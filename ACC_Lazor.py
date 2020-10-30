@@ -43,6 +43,8 @@ class Function(object):
         else:
             return Function(lambda x: self.lam(x) + other.lam(x))
 
+        # Testing, Testing.
+        
     def __sub__(self, other):
         '''
         If other is a number, subtract it from the function such that:
