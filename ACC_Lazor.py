@@ -8,7 +8,7 @@ Lazor Project
 import numpy as np
 import matplotlib.pyplot as plt
 
-
+# codey code code
 class Function(object):
     '''
     This class serves as a wrapper for a lambda function.
