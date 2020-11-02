@@ -20,7 +20,8 @@ def class Reflect:
 
 def class Opaque:
     def call(self, lazor):
-        return(0, 0)
+        lazor = (0, 0)
+        return(lazor)
 
 def class Refract:
     def call(self, lazor):
