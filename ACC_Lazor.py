@@ -201,5 +201,61 @@ def read_lazor(level_name):
 
     return(g_len, g_wid, fix, opt, lazor, vp)
 
+def add_block(grid, block, flag=0):
+    '''
+    This adds the block types to the grid.
+    
+    **Parameters**
+    
+    grid: *list of lists*
+        The list defining the grid
+    block: *list of tuples*
+        A list defining block characteristics
+    flag: *int*
+        Holds a value of 0 or 1 if block is fixed or not fixed
+        
+    **Returns**
+    
+    grid: *list of lists*
+        The list defining the grid with blocks added
+    '''
+    
+    x = block[1]
+    y = block[2]
+    
+    #Fixed block in the grid
+    if block[0] == 'x':
+        grid[x*2][y*2] = 1
+        grid[x*2 + 1][y*2] = 1
+        grid[x*2][y*2 + 1] = 1
+        grid[x*2 + 1][y*2 + 1] = 1
+
+    #Reflect type block in the grid
+    elif block[0] == 'A':
+        grid[x*2][y*2] = Reflect(flag)
+        grid[x*2 + 1][y*2] = Reflect(flag)
+        grid[x*2][y*2 + 1] = Reflect(flag)
+        grid[x*2 + 1][y*2 + 1] = Reflect(flag)
+   
+    #Opaque type block in the grid
+    elif block[0] == 'B':
+        grid[x*2][y*2] = Opaque(flag)
+        grid[x*2 + 1][y*2] = Opaque(flag)
+        grid[x*2][y*2 + 1] = Opaque(flag)
+        grid[x*2 + 1][y*2 + 1] = Opaque(flag)
+    
+    #Refract type block in the grid
+    elif block[0] == 'C':
+        grid[x*2][y*2] = Refract(flag)
+        grid[x*2 + 1][y*2] = Refract(flag)
+        grid[x*2][y*2 + 1] = Refract(flag)
+        grid[x*2 + 1][y*2 + 1] = Refract(flag)
+    
+    #Exits the system if invalid block type is found
+    else:
+        raise SystemExit("Invalid block type in bff file")
+    return grid
+
+
 if __name__ == "__main__":
     read_lazor("mad_4")
