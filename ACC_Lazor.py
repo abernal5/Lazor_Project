@@ -29,6 +29,48 @@ def class Refract:
         lazor2 = Reflect(lazor)
         return(lazor1, lazor2)
 
+def generate_grid(input_name):
+    '''
+    Generate a maze using the Depth First Search method.
+
+    *Parameters*
+
+        input_name: BFF file to be read in
+
+    *Returns*
+
+        block_grid: list of lists
+        lazor_grid: list of lists
+        lazor: list of tuples
+        blocks: list of tuples
+    '''
+    # Read in BFF file and create appropiate variables
+    g_len, g_wid, fix, blocks, lazor, vp = read_lazor(input_name)
+
+    # Create block grid
+    block_grid = [
+        [0 for i in range(g_wid * 2)]
+        for j in range(g_len * 2)
+    ]
+
+    # Create lazor grid
+    lazor_grid = [
+        [0 for i in range(g_wid * 2 + 1)]
+        for j in range(g_len * 2 + 1)
+    ]
+
+    # Create fixed blocks
+    for block in fix:
+        block_grid = add_block(block_grid, block, flag=1)
+
+    # Create lazor grid
+    for victory in vp:
+        x, y = victory[0], victory[1]
+        lazor_grid[x][y] = 1
+
+    # Save starting grid for later use
+    return block_grid, lazor_grid, lazor, blocks
+
 
 def read_lazor(level_name):
     '''
